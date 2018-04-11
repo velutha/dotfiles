@@ -1,12 +1,17 @@
 set number
 set tabstop=2 expandtab shiftwidth=2
-set smarttab autoindent 
-set smartindent
-set pastetoggle=<F12>
+set smarttab autoindent smartindent
+set wildmenu
 set showmatch
+set pastetoggle=<F12>
 set statusline=%{fugitive#statusline()}
+set laststatus=2
 set hidden
 set hlsearch
+set modifiable
+set foldenable
+set foldmethod=syntax
+set foldlevelstart=10
 :noremap <F4> :set hlsearch! hlsearch?<CR>
 " clear console after leaving vim
 au VimLeave * :!clear
@@ -16,17 +21,34 @@ au VimLeave * :!clear
 " auto reloading vimrc file
 autocmd! bufwritepost .vimrc source %
 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"commandt settings
+let g:CommandTSmartCase=1
+let g:CommandTCancelMap='<S-t>'
+
 :let mapleader=" "
 :nnoremap <leader>w :w<CR>
 :nnoremap <leader>q :wq<CR>
+:nnoremap <leader>l :cn<CR>
+:nnoremap <leader>h :nohl<CR>
+:nnoremap <leader>e :lnext<CR>
+:nnoremap <leader>s :SyntasticToggleMode<CR>
+:nnoremap :g :Git
 :nnoremap H ^
 :nnoremap L g_
 :nnoremap gj <C-D>
 :nnoremap gk <C-U>
 map tt :NERDTreeToggle<CR>
-"commandt settings
-let g:CommandTSmartCase=1
-let g:CommandTCancelMap='<S-t>'
+
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 set nocompatible
 filetype off
@@ -56,6 +78,11 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'ervandew/supertab'
 Plugin 'git://github.com/jiangmiao/auto-pairs.git'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'davidhalter/jedi-vim'
+
 
 Plugin 'git://github.com/altercation/vim-colors-solarized.git'
 " plugin for solarized theme
@@ -68,7 +95,6 @@ filetype plugin indent on    " req
 
 "solarized color theme
 syntax enable
+let g:solarized_termcolors=256
 set background=dark
-let g:solarized_termcolors=16
 colorscheme solarized
-
