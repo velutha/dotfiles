@@ -6,4 +6,4 @@ You can follow along .vimrc to add plugins of your own using vundle.
 
 To use tmux config, put .tmux.conf .tmux.conf.local in your home directory
 
-If you need to change tmux config, change local file
+To change tmux config, change .tmux.conf.local file
